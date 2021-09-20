@@ -7,7 +7,7 @@
 #include "pico/stdlib.h"
 
 int main() {
-  grove::lcd::Lcd1602 lcd(grove::lcd::I2C::kI2C1);
+  grove::lcd::Lcd1602 lcd(grove::ShieldPort::kI2C1);
 
   lcd.Initialize();
   lcd.Print("hello, world!");

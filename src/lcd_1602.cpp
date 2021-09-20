@@ -11,17 +11,21 @@
 namespace grove {
 namespace lcd {
 
-Lcd1602::Lcd1602(const I2C i2c) {
+Lcd1602::Lcd1602(const ShieldPort i2c) {
   uint32_t sda_pin;
   uint32_t scl_pin;
-  if (i2c == I2C::kI2C0) {
+  if (i2c == ShieldPort::kI2C0) {
     i2c_inst_ = i2c0;
     sda_pin = I2C0_SDA;
     scl_pin = I2C0_SCL;
-  } else if (i2c == I2C::kI2C1) {
+  } else if (i2c == ShieldPort::kI2C1) {
     i2c_inst_ = i2c1;
     sda_pin = I2C1_SDA;
     scl_pin = I2C1_SCL;
+  } else {
+    i2c_inst_ = i2c0;
+    sda_pin = I2C0_SDA;
+    scl_pin = I2C0_SCL;
   }
 
   i2c_init(i2c_inst_, 100 * 1000);

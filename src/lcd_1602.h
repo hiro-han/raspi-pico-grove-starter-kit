@@ -6,6 +6,7 @@
 #include <string>
 
 #include "hardware/i2c.h"
+#include "pin_assignment.h"
 
 namespace grove {
 namespace lcd {
@@ -69,11 +70,9 @@ namespace lcd {
 #define MAX_LINES 2
 #define MAX_CHARS 16
 
-enum class I2C { kI2C0, kI2C1 };
-
 class Lcd1602 {
  public:
-  Lcd1602(const I2C i2c);
+  Lcd1602(const ShieldPort i2c);
   virtual ~Lcd1602();
 
   void Initialize();

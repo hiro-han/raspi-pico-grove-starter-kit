@@ -18,6 +18,18 @@ namespace grove {
 #define I2C1_SDA 6
 #define I2C1_SCL 7
 
+enum class ShieldPort {
+  kA1,
+  kA2,
+  kD16,
+  kD18,
+  kD20,
+  kUART0,
+  kUART1,
+  kI2C0,
+  kI2C1
+};
+
 }  // namespace grove
 
 #endif  // PIN_ASSIGMENT_H_
