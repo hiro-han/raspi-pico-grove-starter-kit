@@ -91,9 +91,9 @@ class Lcd1602 {
   void Autoscroll();
   void NoAutoscroll();
   void CreateChar(uint8_t location, uint8_t charmap[]);
-  void SetCursor(uint8_t, uint8_t);
-  virtual size_t Write(uint8_t);
-  void Command(uint8_t);
+  void SetCursor(uint8_t col, uint8_t row);
+  void Write(uint8_t val);
+  void Command(uint8_t val);
   void BlinkLED(void);
   void NoBlinkLED(void);
   void Print(const std::string& str);
@@ -105,7 +105,6 @@ class Lcd1602 {
   uint8_t displayfunction_;
   uint8_t displaycontrol_;
   uint8_t displaymode_;
-  uint8_t initialized_;
   i2c_inst_t* i2c_inst_;
 
   uint8_t currline_;

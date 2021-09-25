@@ -11,7 +11,8 @@
 namespace grove {
 namespace lcd {
 
-Lcd1602::Lcd1602(const ShieldPort i2c) {
+Lcd1602::Lcd1602(const ShieldPort i2c)
+    : displayfunction_(0), displaycontrol_(0), displaymode_(0) {
   uint32_t sda_pin;
   uint32_t scl_pin;
   if (i2c == ShieldPort::kI2C0) {
@@ -48,7 +49,7 @@ void Lcd1602::Initialize() {
 
   // Send function set command sequence
   Command(LCD_FUNCTIONSET | displayfunction_);
-  sleep_us(50000);
+  sleep_us(4500);
 
   Command(LCD_FUNCTIONSET | displayfunction_);
   sleep_us(150);
@@ -88,7 +89,8 @@ void Lcd1602::Home() {
 }
 
 void Lcd1602::SetCursor(uint8_t col, uint8_t row) {
-  unsigned char val = (row == 0 ? col | 0x80 : col | 0xc0);
+  unsigned char val = (row == 0 ? col | 0x80 : col | 0x80 | 0x40);
+  // unsigned char val = (row == 0 ? col : col + 0xc0);
   unsigned char dta[2] = {LCD_SETDDRAMADDR, val};
   SendByteS(dta, 2);
 }
@@ -191,10 +193,9 @@ inline void Lcd1602::Command(uint8_t value) {
 }
 
 // send data
-inline size_t Lcd1602::Write(uint8_t value) {
+void Lcd1602::Write(uint8_t value) {
   unsigned char dta[2] = {LCD_SETCGRAMADDR, value};
   SendByteS(dta, 2);
-  return 1;  // assume sucess
 }
 
 void Lcd1602::SetReg(unsigned char addr, unsigned char dta) {
@@ -203,11 +204,10 @@ void Lcd1602::SetReg(unsigned char addr, unsigned char dta) {
 }
 
 void Lcd1602::Print(const std::string& str) {
-  int length = str.length() + 1;
-  unsigned char dta[length];
-  dta[0] = LCD_SETCGRAMADDR;
-  memcpy(dta + 1, str.c_str(), length);
-  SendByteS(dta, length);
+  for (int i = 0; i < str.length(); i++) {
+    unsigned char dta[2] = {LCD_SETCGRAMADDR, str.c_str()[i]};
+    SendByteS(dta, 2);
+  }
 }
 
 void Lcd1602::SendByte(unsigned char dta) {
