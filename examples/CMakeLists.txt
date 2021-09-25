@@ -1,1 +1,3 @@
+add_subdirectory(onboard_led)
 add_subdirectory(lcd)
+add_subdirectory(temperature_humidity)
