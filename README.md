@@ -4,6 +4,7 @@ C++ codes for [***Grove Starter Kit Raspberry Pi Pico***](https://www.seeedstudi
 ## Grove Sensors
 - Grove LCD 16x2
 - Grove Temperature and Humidity (DHT-11)
+- Grove Light Sensor
 
 ## Source code
 - src
@@ -30,3 +31,16 @@ $ make
 
 ## Run
 Copy executable `*.uf2` file which you want to use on pico from `build/example/` to pico.
+
+### Run debug
+```
+$ cd ~/programing/raspi-pico/openocd/src
+$ openocd -f interface/picoprobe.cfg -f target/rp2040.cfg -s tcl
+```
+
+Run debuger on VSCode
+
+
+リセットポタン押しながらUSB接続
+uf2コピー
+cu -s 115200 -l /dev/ttyACM0

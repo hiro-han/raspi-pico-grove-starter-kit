@@ -1,0 +1,2 @@
+add_subdirectory(temperature_humidity_app)
+add_subdirectory(usb_serial_app)

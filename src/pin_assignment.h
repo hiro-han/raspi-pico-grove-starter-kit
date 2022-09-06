@@ -19,6 +19,7 @@ namespace grove {
 #define I2C1_SCL 7
 
 enum class ShieldPort {
+  kA0,
   kA1,
   kA2,
   kD16,
